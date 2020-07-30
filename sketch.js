@@ -2,10 +2,12 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+const Render = Matter.Render;
 
 var ground, gameState,engine, world,dustbin,paper;
 function setup() {
   createCanvas(800, 400);
+
   rectMode(CENTER);
 
   gameState = "start";
@@ -13,6 +15,15 @@ function setup() {
   engine = Engine.create();
   world = engine.world;
   Engine.run(engine);
+  render = Render.create({
+    element: document.body,
+    engine: engine,
+    options: {
+      width: 800,
+      height: 420,
+      wireframes: false
+    }
+  });
 
   dustbin = new DustBin(720, 390, 100, 10);
   paper = new Paper(100, 300, 10);
@@ -24,6 +35,8 @@ function setup() {
 }
 
 function draw() {
+
+    Render.run(render);
   if (gameState === "start") {
     background("black");
     textSize(20);
